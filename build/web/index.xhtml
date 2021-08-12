@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Tabla Doctores</title>
+    </h:head>
+    <h:body>        
+        
+       <h:form>
+            <p:commandButton value="Agregar Alumno" actionListener="#{doctorControl.vaciaDoctor()}" oncomplete="PF('dialogoAgregar').show();" update=":formAgregar"/>
+            <p:separator/>
+        </h:form>
+        
+        <h:form id="formListado">
+            <p:dataTable id="tablaDoctores" paginator="true" paginatorPosition="bottom" rows="10" var="doctor" value="#{doctorControl.listaDoctores}" emptyMessage="No existen Doctores">
+                <p:column headerText="ID Doctor">
+                    <h:outputText value="#{doctor.iddoctorRick}" />
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{doctor.nombreRick}" />
+                </p:column>
+                <p:column headerText="Edad">
+                    <h:outputText value="#{doctor.edadRick}" />
+                </p:column>
+                <p:column headerText="Especialidad">
+                    <h:outputText value="#{doctor.especialidadRick}" />
+                </p:column>
+                <p:column headerText="Cargo">
+                    <h:outputText value="#{doctor.cargoRick}" />
+                </p:column>
+                <p:column headerText="Telefono">
+                    <h:outputText value="#{doctor.telefonoRick}" />
+                </p:column>
+                 <p:column headerText="Cedula">
+                     <h:outputText value="#{doctor.cedulaRick}" />
+                </p:column>
+                
+                  <p:column headerText="MODIFICAR" style="text-align: center">
+                    <p:commandButton icon="ui-icon-pencil" title="Modificar" oncomplete="PF('dialogoModificar').show();" update=":formModificar">
+                        <f:setPropertyActionListener target="#{doctorControl.doctor}" value="#{doctor}"/>
+                    </p:commandButton>
+                </p:column>
+                
+                 <p:column headerText="ELIMINAR" style="text-align: center">
+                    <p:commandButton icon="ui-icon-trash" title="Eliminar" oncomplete="PF('dialogoEliminar').show();" update=":formEliminar">
+                        <f:setPropertyActionListener target="#{doctorControl.doctor}" value="#{doctor}"/>
+                    </p:commandButton>
+                </p:column>
+
+       
+            </p:dataTable>
+        </h:form>
+        
+        <h:form id="formAgregar">
+            <p:dialog id="dlgAgregar" header="Agregar Doctor" widgetVar="dialogoAgregar" resizable="false" showEffect="blind" hideEffect="explode" modal="true" >
+                <p:panelGrid columns="2" style="margin: 0 auto;">                                
+                    <p:outputLabel value="Nombre:"/>
+                    <p:inputText value="#{doctorControl.doctor.nombreRick}"/>
+                    <p:outputLabel value="Edad:"/>
+                    <p:inputText value="#{doctorControl.doctor.edadRick}"/>
+                    <p:outputLabel value="Especialidad:"/>
+                    <p:inputText value="#{doctorControl.doctor.especialidadRick}"/>
+                    <p:outputLabel value="Cargo:"/>
+                    <p:inputText value="#{doctorControl.doctor.cargoRick}"/>
+                    <p:outputLabel value="Telefono:"/>
+                    <p:inputText value="#{doctorControl.doctor.telefonoRick}"/>
+                    <p:outputLabel value="Cedula:"/>
+                    <p:inputText value="#{doctorControl.doctor.cedulaRick}"/>
+                </p:panelGrid>
+                <p:commandButton  value="Guardar" actionListener="#{doctorControl.creaDoctor()}" update=":formListado:tablaDoctores" oncomplete="PF('dialogoAgregar').hide();"/>
+                <p:commandButton  value="Cancelar" onclick="PF('dialogoAgregar').hide();"/>
+            </p:dialog>
+        </h:form>
+        
+         <h:form id="formEliminar">
+            <p:dialog id="dlgEliminar" header="Eliminar Doctor" widgetVar="dialogoEliminar" resizable="false" showEffect="fade" hideEffect="explode" modal="true">
+                <h:outputText value="Desea eliminar este registro (#{doctorControl.doctor.nombreRick})?"/>
+                <p:commandButton  value="Si" actionListener="#{doctorControl.eliminaDoctor()}" update=":formListado:tablaDoctores" oncomplete="PF('dialogoEliminar').hide();"/>
+                <p:commandButton  value="No" onclick="PF('dialogoEliminar').hide();"/>
+            </p:dialog>
+        </h:form>
+        
+         <h:form id="formModificar">
+            <p:dialog id="dlgModificar" header="Modificar Doctor" widgetVar="dialogoModificar" resizable="false" showEffect="fade" hideEffect="explode" modal="true">
+                <p:panelGrid columns="2" style="margin: 0 auto;">                                
+                    <p:outputLabel value="Nombre:"/>
+                    <p:inputText value="#{doctorControl.doctor.nombreRick}"/>
+                    <p:outputLabel value="Edad:"/>
+                    <p:inputText value="#{doctorControl.doctor.edadRick}"/>
+                    <p:outputLabel value="Especialidad:"/>
+                    <p:inputText value="#{doctorControl.doctor.especialidadRick}"/>
+                    <p:outputLabel value="Cargo:"/>
+                    <p:inputText value="#{doctorControl.doctor.cargoRick}"/>
+                    <p:outputLabel value="Telefono:"/>
+                    <p:inputText value="#{doctorControl.doctor.telefonoRick}"/>
+                    <p:outputLabel value="Cedula:"/>
+                    <p:inputText value="#{doctorControl.doctor.cedulaRick}"/>
+                </p:panelGrid>
+                <p:commandButton  value="Guardar" actionListener="#{doctorControl.modificaDoctor()}" update=":formListado:tablaDoctores" oncomplete="PF('dialogoModificar').hide();"/>
+                <p:commandButton  value="Cancelar" onclick="PF('dialogoModificar').hide();"/>
+            </p:dialog>
+        </h:form>
+        
+    </h:body>
+</html>
